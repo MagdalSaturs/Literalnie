@@ -36,21 +36,30 @@ $(document).ready(function() {
         input.focus();
     } 
 
-    const Green = (lineId, responseGreen, responseYellow) => {
+    const Green = (lineId, green) => {
         const row = document.getElementsByClassName('row')[lineId];
         if (!row) {
             return;
         }
 
         const inputs = row.children;
-        const inputsCount = inputs.length;
-
-        for (let i = 0; i < responseGreen.length; i++) {
-            inputs[responseGreen[i]].style.background = "#03fc13";
-            inputs[responseGreen[i]].style.color = "black";
+        for (let i = 0; i < green.length; i++) {
+            inputs[green[i]].style.background = "#03fc13";
+            inputs[green[i]].style.color = "black";
         }
-        for (let i = 0; i < responseYellow.length; i++) {
-            inputs[responseYellow[i]].style.background = "#e5fa05";
+    }
+
+    const Red = (lineId, red) => {
+        const row = document.getElementsByClassName('row')[lineId];
+        if (!row) {
+            return;
+        }
+
+        const inputs = row.children;
+
+        for (let i = 0; i < red.length; i++) {
+            inputs[red[i]].style.background = "red";
+            inputs[red[i]].style.color = "black";
         }
     }
 
@@ -85,11 +94,10 @@ $(document).ready(function() {
                     
                     $.post('/api/check', data)
                     .then(response => {
-                        
                         if (response === 'Wygrałeś') {
                             Green(index, "01234");
                         }else if (response === 'Nie') {
-                            Green(index, response[0], response[1])
+                            Red(index, "01234");
                         }
 
 
@@ -124,6 +132,24 @@ $(document).ready(function() {
             } else {
                 input.value = '';
             }
+
+            
+        input.addEventListener('keypress', (e) => {
+            const key = e.key;
+
+            if (key === 'Backspace') {
+                input.value = '';
+
+                if(input.previousElementSibling) {
+                    input.previousElementSibling.focus();
+                    
+                    for (let i = 0; i < inputsCount; i++) {
+                        const input = inputs[i];
+                        input.style.outline = '3px solid rgb(218, 218, 218)';
+                    }
+                }
+            }
+        });
         });
     };
 });
