@@ -4,6 +4,8 @@ $(document).ready(function() {
     const pattern =  ['A','a','Ą','ą','B','b','C','c','Ć','ć','D','d','E','e','Ę','ę','F','f','G','g','H','h','I','i','J','j','K','k','L','l','Ł','ł','M','m','N','n','Ń','ń','O','o','Ó','ó','P','p','R','r','S','s','Ś','ś','T','t','U','u','W','w','Y','y','Z','z','Ź','ź','Ż','ż'];
     const chances = [false, false, false, false, false, false];
 
+    var tura = 0;
+
     const blockLine = (lineId) => {
         const row = document.getElementsByClassName('row')[lineId];
 
@@ -49,19 +51,19 @@ $(document).ready(function() {
         }
     }
 
-    // const Red = (lineId, red) => {
-    //     const row = document.getElementsByClassName('row')[lineId];
-    //     if (!row) {
-    //         return;
-    //     }
+    const Red = (lineId, red) => {
+        const row = document.getElementsByClassName('row')[lineId];
+        if (!row) {
+            return;
+        }
 
-    //     const inputs = row.children;
+        const inputs = row.children;
 
-    //     for (let i = 0; i < red.length; i++) {
-    //         inputs[red[i]].style.background = "red";
-    //         inputs[red[i]].style.color = "black";
-    //     }
-    // }
+        for (let i = 0; i < red.length; i++) {
+            inputs[red[i]].style.background = "red";
+            inputs[red[i]].style.color = "black";
+        }
+    }
 
     const Yellow = (lineId, yellow) => {
         const row = document.getElementsByClassName('row')[lineId];
@@ -110,9 +112,19 @@ $(document).ready(function() {
                     .then(response => {
                         if (response === 'Wygrałeś') {
                             Green(index, "01234");
+                            tura += 1;
+                            document.getElementById("ruch").innerText = tura;
+                            document.getElementById("answer").innerText = "Dobrze!";
+                            window.location.href = './Wygrana.html';
                         }else if (response === 'Nie') {
-                            // Red(index, "01234");
-                            Yellow(index, yellow);
+                            Red(index, "01234");
+                            // Yellow(index, yellow);
+                            tura += 1;
+                            document.getElementById("ruch").innerText = tura;
+                            document.getElementById("answer").innerText = "Próbuj dalej";
+                            if (tura === 6) {
+                                window.location.href = './Przegrana.html';
+                            }
                         }
 
 
