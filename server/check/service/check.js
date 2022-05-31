@@ -14,6 +14,13 @@ const check = (req) => {
     } 
     
     if (word != password) {
+        yellow = ""
+        for (var i = 0; i < 5; i++) {
+            if(password.indexOf(word.toLowerCase()[i]) != -1) {
+                yellow += i
+            }
+        }
+        console.log(yellow)
         return "Nie";
     }
 

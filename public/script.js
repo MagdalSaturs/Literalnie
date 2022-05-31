@@ -49,7 +49,21 @@ $(document).ready(function() {
         }
     }
 
-    const Red = (lineId, red) => {
+    // const Red = (lineId, red) => {
+    //     const row = document.getElementsByClassName('row')[lineId];
+    //     if (!row) {
+    //         return;
+    //     }
+
+    //     const inputs = row.children;
+
+    //     for (let i = 0; i < red.length; i++) {
+    //         inputs[red[i]].style.background = "red";
+    //         inputs[red[i]].style.color = "black";
+    //     }
+    // }
+
+    const Yellow = (lineId, yellow) => {
         const row = document.getElementsByClassName('row')[lineId];
         if (!row) {
             return;
@@ -57,9 +71,9 @@ $(document).ready(function() {
 
         const inputs = row.children;
 
-        for (let i = 0; i < red.length; i++) {
-            inputs[red[i]].style.background = "red";
-            inputs[red[i]].style.color = "black";
+        for (let i = 0; i < yellow.length; i++) {
+            inputs[red[yellow[i]]].style.background = "yellow";
+            inputs[red[yellow[i]]].style.color = "black";
         }
     }
 
@@ -97,7 +111,8 @@ $(document).ready(function() {
                         if (response === 'Wygrałeś') {
                             Green(index, "01234");
                         }else if (response === 'Nie') {
-                            Red(index, "01234");
+                            // Red(index, "01234");
+                            Yellow(index, yellow);
                         }
 
 
