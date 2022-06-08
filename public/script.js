@@ -38,7 +38,7 @@ $(document).ready(function() {
         input.focus();
     } 
 
-    const Green = (lineId, green) => {
+    const green = (lineId, green) => {
         const row = document.getElementsByClassName('row')[lineId];
         if (!row) {
             return;
@@ -46,12 +46,12 @@ $(document).ready(function() {
 
         const inputs = row.children;
         for (let i = 0; i < green.length; i++) {
-            inputs[green[i]].style.background = "#03fc13";
-            inputs[green[i]].style.color = "black";
+            inputs[green[i]].style.background = '#03fc13';
+            inputs[green[i]].style.color = 'black';
         }
     }
 
-    const Red = (lineId, red) => {
+    const red = (lineId, red) => {
         const row = document.getElementsByClassName('row')[lineId];
         if (!row) {
             return;
@@ -60,8 +60,8 @@ $(document).ready(function() {
         const inputs = row.children;
 
         for (let i = 0; i < red.length; i++) {
-            inputs[red[i]].style.background = "red";
-            inputs[red[i]].style.color = "black";
+            inputs[red[i]].style.background = 'red';
+            inputs[red[i]].style.color = 'black';
         }
     }
 
@@ -74,8 +74,8 @@ $(document).ready(function() {
         const inputs = row.children;
 
         for (let i = 0; i < yellow.length; i++) {
-            inputs[red[yellow[i]]].style.background = "yellow";
-            inputs[red[yellow[i]]].style.color = "black";
+            inputs[red[yellow[i]]].style.background = 'yellow';
+            inputs[red[yellow[i]]].style.color = 'black';
         }
     }
 
@@ -111,19 +111,19 @@ $(document).ready(function() {
                     $.post('/api/check', data)
                     .then(response => {
                         if (response === 'Wygrałeś') {
-                            Green(index, "01234");
+                            green(index, '01234');
                             tura += 1;
-                            document.getElementById("ruch").innerText = tura;
-                            document.getElementById("answer").innerText = "Dobrze!";
-                            window.location.href = './Wygrana.html';
+                            document.getElementById('ruch').innerText = tura;
+                            document.getElementById('answer').innerText = 'Dobrze!';
+                            window.location.href = './Win.html';
                         }else if (response === 'Nie') {
-                            Red(index, "01234");
+                            red(index, '01234');
                             // Yellow(index, yellow);
                             tura += 1;
-                            document.getElementById("ruch").innerText = tura;
-                            document.getElementById("answer").innerText = "Próbuj dalej";
+                            document.getElementById('ruch').innerText = tura;
+                            document.getElementById('answer').innerText = 'Próbuj dalej';
                             if (tura === 6) {
-                                window.location.href = './Przegrana.html';
+                                window.location.href = './Lose.html';
                             }
                         }
 
